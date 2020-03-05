@@ -216,10 +216,11 @@ void main()
 
 ---
 
-#end
+
 
 ---
 
+#  Program for scaling a two-dimensional object using our coordinate system.
 
 
 ```c
