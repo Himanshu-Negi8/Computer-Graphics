@@ -210,7 +210,13 @@ void main()
 
 ```c
 printf()
-```
+printf()
+printf()
+printf()```
 
 ---
+
+printf()
+printf()
+printf()
 ---
