@@ -208,16 +208,8 @@ void main()
 	getch();
 }
 
-```c
-printf()
-printf()
-printf()
-printf()
-```
+
 
 ---
 
-printf()
-printf()
-printf()
 ---
