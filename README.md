@@ -58,8 +58,6 @@ int main(){
 return 0;
 
 }
-
-
 ```
 
 
@@ -70,6 +68,7 @@ return 0;
 
 
 ---
+
 
 # Rotation of a triangle
 
@@ -140,11 +139,16 @@ int main(){
 
 
 
-}```
+}
+```
+
+---
+
 
 
 #Program for Rotation of 2-D Object
 
+```c
 #include<stdio.h>
 #include<conio.h>
 #include<math.h>
@@ -207,9 +211,11 @@ void main()
 	line(r[0][1],r[1][1],r[0][2],r[1][2]);
 	getch();
 }
-
+```
 
 
 ---
+
+#end
 
 ---
