@@ -219,3 +219,77 @@ void main()
 #end
 
 ---
+
+
+
+```c
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+#include<graphics.h>
+
+
+void main()
+{
+	int gd = DETECT,gm;
+
+	int i,j,k1,a[3][3];
+	float b[3][3],r[3][3];
+	float sx,sy;
+	int h=350,k=300;
+	initgraph(&gd,&gm,"C:\\TC\\BGI");
+	printf("Enter the first vertex : ");
+	scanf("%d%d",&a[0][0],&a[1][0]);
+	printf("Enter the second vertex : ");
+	scanf("%d%d",&a[0][1],&a[1][1]);
+	printf("Enter the third vertex : ");
+	scanf("%d%d",&a[0][2],&a[1][2]);
+	a[2][0]=a[2][1]=a[2][2]=1;
+	printf("enter sx and sy:");
+	scanf("%f%f",&sx,&sy);
+	line(h,k,640,k);
+	line(h,k,h,10);
+	line(h+a[0][0],k-a[1][0],h+a[0][1],k-a[1][1]);
+	line(h+a[0][0],k-a[1][0],h+a[0][2],k-a[1][2]);
+	line(h+a[0][1],k-a[1][1],h+a[0][2],k-a[1][2]);
+
+
+	b[0][0]=sx;
+
+	b[1][1]=sy;
+
+	b[0][1]=b[1][0]=b[0][2]=b[1][2]=b[2][0]=b[2][1]=0.0;
+	b[2][2]=1;
+
+	for(i=0;i<3;i++)
+	{
+		for(k1=0;k1<3;k1++)
+		{
+			r[i][k1]=0.0;
+			for(j=0;j<3;j++)
+			{
+
+				r[i][k1]=r[i][k1]+(b[i][j]*a[j][k1]);
+			}
+		}
+	}
+
+	printf("the matrix formed is : \n");
+
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			printf("%f ",r[i][j]);
+		}
+		printf("\n");
+	}
+
+	line(floor(h+r[0][0]),floor(k-r[1][0]),floor(h+r[0][1]),floor(k-r[1][1]));
+	line(floor(h+r[0][0]),floor(k-r[1][0]),floor(h+r[0][2]),floor(k-r[1][2]));
+	line(floor(h+r[0][1]),floor(k-r[1][1]),floor(h+r[0][2]),floor(k-r[1][2]));
+	getch();
+}
+```
+
+---
