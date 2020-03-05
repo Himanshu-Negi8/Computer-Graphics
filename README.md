@@ -1,5 +1,3 @@
-# Computer-Graphics
-
 
 
 # Mid point circle generating algorithm.
@@ -143,3 +141,69 @@ int main(){
 
 
 }```
+
+
+#Program for Rotation of 2-D Object
+
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+#include<graphics.h>
+
+
+void main()
+{
+	int gd = DETECT,gm;
+
+	int i,j,k,a[3][3],t;
+	float p,b[3][3],r[3][3];
+	initgraph(&gd,&gm,"C:\\TC\\BGI");
+	printf("Enter the first vertex : ");
+	scanf("%d%d",&a[0][0],&a[1][0]);
+	printf("Enter the second vertex : ");
+	scanf("%d%d",&a[0][1],&a[1][1]);
+	printf("Enter the third vertex : ");
+	scanf("%d%d",&a[0][2],&a[1][2]);
+	a[2][0]=a[2][1]=a[2][2]=1;
+	printf("enter the angle:");
+	scanf("%d",&t);
+	line(a[0][0],a[1][0],a[0][1],a[1][1]);
+	line(a[0][0],a[1][0],a[0][2],a[1][2]);
+	line(a[0][1],a[1][1],a[0][2],a[1][2]);
+	p=(float)((3.14/180)*t);
+
+	b[0][0]=cos(p);
+	b[0][1]=-sin(p);
+	b[1][0]=sin(p);
+	b[1][1]=cos(p);
+	b[0][2]=b[1][2]=b[2][0]=b[2][1]=0.0;
+	b[2][2]=1;
+
+	for(i=0;i<3;i++)
+	{
+		for(k=0;k<3;k++)
+		{
+			r[i][k]=0.0;
+			for(j=0;j<3;j++)
+			{
+				r[i][k]=r[i][k]+(b[i][j]*a[j][k]);
+			}
+		}
+	}
+
+	printf("the matrix formed is : \n");
+
+	for(i=0;i<3;i++)
+	{
+		for(j=0;j<3;j++)
+		{
+			printf("%f ",r[i][j]);
+		}
+		printf("\n");
+	}
+
+	line(r[0][0],r[1][0],r[0][1],r[1][1]);
+	line(r[0][0],r[1][0],r[0][2],r[1][2]);
+	line(r[0][1],r[1][1],r[0][2],r[1][2]);
+	getch();
+}
