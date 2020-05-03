@@ -407,7 +407,7 @@ void main()
 ---
 
 
-#Program for Boundary Fill
+# Program for Boundary Fill
 ```c
 #include<stdio.h>
 #include<conio.h>
@@ -444,3 +444,49 @@ void main(){
     getch();
 }
 ```
+---
+
+# Program For Flood Fill
+```c
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+void floodFill(int x, int y, int fillColor, int oldColor){
+    if(getpixel(x,y) == oldColor){
+	putpixel(x,y,fillColor);
+	floodFill(x+1, y, fillColor, oldColor);
+	floodFill(x-1, y, fillColor, oldColor);
+	floodFill(x, y+1, fillColor, oldColor);
+	floodFill(x, y-1, fillColor, oldColor);
+    }
+}
+
+void main(){
+    int x1,y1,x2,y2,x3,y3,x4,y4,x,y;
+    int oldColor = BLACK;
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+    printf("Enter coordinates of A: ");
+    scanf("%d%d",&x1, &y1);
+    printf("Enter coordinates of B: ");
+    scanf("%d%d",&x2, &y2);
+    printf("Enter coordinates of C: ");
+    scanf("%d%d",&x3, &y3);
+    printf("Enter coordinates of D: ");
+    scanf("%d%d",&x4, &y4);
+    setcolor(YELLOW);
+    line(x1,y1,x2,y2);
+    setcolor(GREEN);
+    line(x2,y2,x3,y3);
+    setcolor(MAGENTA);
+    line(x3,y3,x4,y4);
+    setcolor(BLUE);
+    line(x4,y4,x1,y1);
+    x = (int) (x1+x2+x3+x4)/4;
+    y = (int) (y1+y2+y3+y4)/4;
+    floodFill(x,y,RED,oldColor);
+    getch();
+}
+```
+---
