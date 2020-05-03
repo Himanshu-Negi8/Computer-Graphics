@@ -405,3 +405,42 @@ void main()
 ```
 
 ---
+
+
+#Program for Boundary Fill
+```c
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+void boundaryFill(int x, int y, int fillColor, int boundaryColor){
+    if(getpixel(x,y) != boundaryColor && getpixel(x,y) != fillColor){
+	putpixel(x,y,fillColor);
+	boundaryFill(x+1, y, fillColor, boundaryColor);
+	boundaryFill(x-1, y, fillColor, boundaryColor);
+	boundaryFill(x, y+1, fillColor, boundaryColor);
+	boundaryFill(x, y-1, fillColor, boundaryColor);
+    }
+}
+
+void main(){
+    int x1,y1,x2,y2,x3,y3,x,y;
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+    printf("Enter coordinates of A: ");
+    scanf("%d%d",&x1, &y1);
+    printf("Enter coordinates of B: ");
+    scanf("%d%d",&x2, &y2);
+    printf("Enter coordinates of c: ");
+    scanf("%d%d",&x3, &y3);
+    setcolor(WHITE);
+    line(x1,y1,x2,y2);
+    line(x2,y2,x3,y3);
+    line(x3,y3,x1,y1);
+    x = (int) (x1+x2+x3)/3;
+    y = (int) (y1+y2+y3)/3;
+    delay(500);
+    boundaryFill(x,y,5, WHITE);
+    getch();
+}
+```
