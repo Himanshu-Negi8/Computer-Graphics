@@ -490,3 +490,174 @@ void main(){
 }
 ```
 ---
+
+# Program for Scan Line Filling
+```c
+
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+void main()
+{
+	int n,i,j,k,dy,dx;
+	int gd = DETECT,gm;
+	int x,y,temp;
+	int a[10][2],xi[10];
+	float slope[20];
+
+	printf("enter the no of edegs of polygon:");
+	scanf("%d",&n);
+
+	printf("Enter the cords of polygon:");
+	for(i=0;i<n;i++)
+	{
+		scanf("%d%d",&a[i][0],&a[i][1]);
+	}
+	a[n][0]=a[0][0];
+	a[n][1]=a[0][1];
+
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+    for(i=0;i<n;i++)
+    {
+	line(a[i][0],a[i][1],a[i+1][0],a[i+1][1]);
+    }
+	getch();
+	for(i=0;i<n;i++)
+	{
+		dy=a[i+1][1]-a[i][1];
+		dx = a[i+1][0]-a[i][0];
+
+		if(dy==0)
+		{
+			slope[i]=1.0;
+		}
+		if(dx==0)
+		{
+			slope[i]=0.0;
+		}
+		if((dy!=0)&&(dx!=0))
+		{
+			slope[i]= (float)(dx/dy);
+		}
+	}
+
+	for(y=0;y<480;y++)
+	{
+		k=0;
+		for(i=0;i<n;i++)
+		{
+			if((a[i][1]<=y)&&(a[i+1][1]>y)||((a[i][1]>y)&&(a[i+1][1]<=y)))
+			{
+				xi[k]=(int)a[i][0]+slope[i]*(y-a[i][1]);
+				k++;
+			}
+		}
+
+		for(j=0;j<k-1;j++)
+		for(i=0;i<k-1;i++)
+		{
+			if(xi[i]>xi[i+1])
+			{
+				temp=xi;
+				xi[i]=xi[i+1];
+				xi[i+1]=temp;
+			}
+		}
+		setcolor(4);
+		for(i=0;i<k;i+=2)
+		{
+			line(xi[i],y,xi[i+1],y);
+			getch();
+		}
+	}
+	getch();
+
+	getch();
+}
+```
+---
+
+# Program for Liang barsky clipping algorithm
+
+```c
+
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+void main()
+{
+	int gd=DETECT,gm,k,h=50,c=400;
+	float x1,y1,x2,y2,xmin,xmax,ymin,ymax,dx,dy,p[4],q[4],r[4],u1=0.0,u2=1.0;
+	initgraph(&gd,&gm,"C:\\TurboC3\\BGI");
+	printf("Enter the boundaries of clip window\n");
+	scanf("%f%f%f%f",&xmin,&ymin,&xmax,&ymax);
+	printf("Enter the end point of the line\n");
+	scanf("%f%f%f%f",&x1,&y1,&x2,&y2);
+	line(h,c,640,c);
+	line(h,c,h,10);
+	rectangle(h+xmin,c-ymin,h+xmax,c-ymax);
+	line(h+x1,c-y1,h+x2,c-y2);
+	getch();
+	dx=x2-x1;
+	dy=y2-y1;
+	p[0]=-dx;
+	p[1]=dx;
+	p[2]=-dy;
+	p[3]=dy;
+	q[0]=x1-xmin;
+	q[1]=xmax-x1;
+	q[2]=y1-ymin;
+	q[3]=ymax-y1;
+	for(k=0;k<=3;k++)
+	{
+		if((p[k]==0)&&(q[k]<0))
+		{
+			printf("Line is outside of clip window\n");
+			getch();
+		}
+	}
+	for(k=0;k<=3;k++)
+	{
+		if(p[k]<0)
+		{
+			r[k]=q[k]/p[k];
+			if(r[k]>u1)
+				u1=r[k];
+		}
+		if(p[k]>0)
+		{
+			r[k]=q[k]/p[k];
+			if(r[k]<u2)
+				u2=r[k];
+		}
+	}
+	if(u1>u2)
+	{
+		printf("line is completely out of clip window");
+		getch();
+	}
+	if(u1==0.0&&u2==1.0)
+	{
+		printf("The line is inside the clip window");
+		getch();
+	}
+	if(u1<u2)
+	{
+		x2=x1+(u2*dx);
+		y2=y1+(u2*dy);
+		x1=x1+(u1*dx);
+		y1=y1+(u1*dy);
+		clrscr();
+		printf("u1=%f\tu2=%f\nx1=%f\ty1=%f\nx2=%f\ty2=%f\n",u1,u2,x1,y1,x2,y2);
+		printf("The required clipped line is:\n");
+		line(h,c,640,c);
+		line(h,c,h,10);
+		rectangle(h+xmin,c-ymin,h+xmax,c-ymax);
+		line(h+x1,c-y1,h+x2,c-y2);
+		getch();
+	}
+}
+```
+---
