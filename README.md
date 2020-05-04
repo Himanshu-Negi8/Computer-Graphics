@@ -661,3 +661,114 @@ void main()
 }
 ```
 ---
+
+# Program for Viewing Transformation
+```c
+#include<stdio.h>
+#include<conio.h>
+#include<graphics.h>
+
+void main()
+{
+	float sx,sy;
+	int i,j,k;
+	int A[3][3],B[3][3],a[3][3];
+	int w1,w2,w3,w4,v1,v2,v3,v4;
+	float S[3][3],R[3][3];
+	float K[3][3],r[3][3];
+	
+	int gd = DETECT,gm;
+	initgraph();
+	
+	printf("Enter the vertices of triangle : ");
+	scanf("%d%d%d%d%d%d",a[0][0],a[1][0],a[0][1],a[1][1],a[0][2],a[1][2]);
+	
+	w1=w2=5;w3=635,w4=465;
+	
+	rectangle(w1,w2,w3,w4);
+	line(a[0][0],a[1][0],a[0][1],a[1][1]);
+	line(a[0][1],a[1][1],a[0][2],a[1]2]);
+	line(a[0][2],a[1][2],a[0][0],a[1][0]);
+	
+	a[2][0]=a[2][1]=a[2][2]=1;
+	getch();
+	
+	v1=425;v2=75;v3=550;v4=250;
+	
+	sx = (float)(v3-v1)/(w3-w1);
+	sy=(float)(v4-v2)/(w4-w2);
+	
+	rectangle(v1,v2,v3,v4);
+	
+	//matrix A
+	
+	A[0][0]=1;
+	A[0][1]=0;
+	A[0][2]=-w1;
+	A[1][0]=0;
+	A[1][1]=1;
+	A[1][2]=-w2;
+	A[2][0]=A[2][1]=0;
+	A[2][2]=1;
+	
+	//matrix S
+	
+	S[0][0]=sx;
+	S[1][0]=S[1][2]=S[2][0]=S[2][1]=S[0][1]=S[0][2]=0;
+	
+	S[1][1]=sy;
+	
+	S[2][2]=1;
+	
+	//matrix B
+	B[0][0]=B[1][1]=B[2][2]=1;
+	B[0][1]=B[1][0]=B[2][0]=B[2][1]=0;
+	B[0][2]=v1;
+	B[1][2]=v2;
+	
+	// matrix multipication 
+	
+
+	
+	for( i=0;i<3;i++){
+		for( j=0;j<3;j++){
+			K[i][j]=0;
+			for(k=0;k<2;k++){
+				K[i][j]+=S[i][k]*A[k][j];
+			}
+		}
+	}
+	
+	//again
+	
+	for( i=0;i<3;i++){
+		for( j=0;j<3;j++){
+			R[i][j]=0;
+			for(k=0;k<2;k++){
+				R[i][j]+=B[i][k]*K[k][j];
+			}
+		}
+	}
+	
+	//again
+	
+	for( i=0;i<3;i++){
+		for( j=0;j<3;j++){
+			r[i][j]=0;
+			for(k=0;k<2;k++){
+				r[i][j]+=R[i][k]*a[k][j];
+			}
+		}
+	}
+	
+	
+	line(floor(r[0][0]+.5),floor(r[1][0]+.5),floor(r[0][1]+.5),floor(r[1][1]+.5));
+	line(floor(r[0][1]+.5),floor(r[1][1]+.5),floor([0][2]+.5),floor(r[1][2]+.5));
+	line(floor([0][2]+.5),floor(r[1][2]+.5),floor(r[0][0]+.5),floor(r[1][0]+.5));
+	
+	getch();
+	
+	
+}
+```
+---
