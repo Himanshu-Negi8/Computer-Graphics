@@ -772,3 +772,49 @@ void main()
 }
 ```
 ---
+
+# Bezier Curve 
+
+```c
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+#include<graphics.h>
+
+void main()
+{
+    float u, j;
+    int i, n, x[4], y[4], ymax = 480, bx, by;
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, "C:\\TURBOC3\\BGI");
+
+
+    printf("Enter 4 control points:\n");
+
+    for (i = 0; i < 4; i++)
+    {
+	printf("\tEnter X%d Y%d:  ", i, i);
+	scanf("%d%d", &x[i], &y[i]);
+	putpixel(x[i], ymax - y[i], 15);
+    }
+    delay(400);
+
+    setcolor(4);
+    for (i = 0; i < 3; i++)
+    {
+	line(x[i], ymax-y[i], x[i+1], ymax-y[i+1]);
+    }
+    getch();
+
+    setcolor(3);
+    for (u = 0; u <= 1; u+= 0.0001)
+    {
+	bx = pow(1-u, 3)*x[0] + pow(1-u,2)*3*u*x[1] + pow(u,2)*3*(1-u)*x[2] + pow(u,3)*x[3];
+	by = pow(1-u, 3)*y[0] + pow(1-u,2)*3*u*y[1] + pow(u,2)*3*(1-u)*y[2] + pow(u,3)*y[3];
+	putpixel(bx, ymax - by, 3);
+    }
+    getch();
+    
+}
+```
+---
